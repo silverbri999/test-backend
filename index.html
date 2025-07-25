@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Square Calculator</title>
+</head>
+<body>
+  <h1>Square Calculator</h1>
+
+  <input type="number" id="numberInput" placeholder="Enter a number" />
+  <button id="calcButton">Calculate Square</button>
+
+  <p id="result"></p>
+
+  <script>
+    const button = document.getElementById('calcButton');
+    const input = document.getElementById('numberInput');
+    const result = document.getElementById('result');
+
+    button.addEventListener('click', () => {
+      const number = input.value;
+      if (!number) {
+        result.textContent = 'Please enter a number';
+        return;
+      }
+
+      // Call the backend API using fetch
+      fetch(`http://localhost:5000/square/${number}`)
+        .then(response => response.text())
+        .then(data => {
+          result.textContent = data;
+        })
+        .catch(() => {
+          result.textContent = 'Error calling backend';
+        });
+    });
+  </script>
+</body>
+</html>
